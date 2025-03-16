@@ -1,0 +1,19 @@
+
+{% load compress %}
+{% load static %}
+
+{% compress css %}<link type="text/x-scss" href="{% static 'scss/bootstrap.scss' %}" rel="stylesheet" media="screen">{% endcompress %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON Object {{ work.pk }}</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <h1>JSON Object {{ work.pk }}</h1>
+    <pre><code class="json">{{ pretty_json_data|safe }}</code></pre>
+    <a href="{% url 'list_json_objects' %}">Back to list</a>
+</body>
+  </html>

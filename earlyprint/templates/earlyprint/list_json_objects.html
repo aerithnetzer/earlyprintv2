@@ -1,0 +1,18 @@
+{% load compress %}
+{% load static %}
+
+{% compress css %}<link type="text/x-scss" href="{% static 'scss/bootstrap.scss' %}" rel="stylesheet" media="screen">{% endcompress %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON Objects</title>
+</head>
+<body>
+    <h1>JSON Objects</h1>
+    <ul>
+        {% for work in works %}
+            <li><a href="{% url 'view_json_object' work.pk %}">JSON Object {{ work.pk }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
