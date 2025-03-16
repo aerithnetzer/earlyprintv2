@@ -25,7 +25,7 @@ from earlyprint.views import (
     index,
     search_results,
 )
-from api.views import api_index
+from api.views import api_index, api_search
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -38,5 +38,6 @@ urlpatterns = [
         api_index,
         name="api_index",
     ),
+    path("api/search/", api_search, name="api_search"),
     path("search-results/", search_results, name="search_results"),
 ]

@@ -9,7 +9,7 @@
     <h1>Search Results</h1>
     <ul>
         {% for result in results %}
-            <li><a href="{% url 'view_json_object' result.pk %}">{{ result.title }}</a></li>
+<li><a href="{% url 'view_json_object' result.work.pk %}">{{ result.title }}</a></li>
         {% endfor %}
     </ul>
     <a href="{% url 'index' %}">Back to search</a>

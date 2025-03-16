@@ -56,6 +56,8 @@ def search_results(request):
     query = request.GET.get("query")
     if query:
         results = Work.objects.filter(json_data__icontains=query)[:10]
+        # Create a list of dictionaries with work and title
+        results_with_titles = []
         for result in results:
             title = (
                 result.json_data.get("TEI", {})
@@ -64,7 +66,9 @@ def search_results(request):
                 .get("titleStmt", {})
                 .get("title", "No title available")
             )
-            result.title = title
+            results_with_titles.append({"work": result, "title": title})
     else:
-        results = Work.objects.none()
-    return render(request, "earlyprint/search_results.html", {"results": results})
+        results_with_titles = []
+    return render(
+        request, "earlyprint/search_results.html", {"results": results_with_titles}
+    )
