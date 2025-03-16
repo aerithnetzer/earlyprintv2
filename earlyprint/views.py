@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Q
 import json
 import requests
 import xmltodict
@@ -49,3 +50,21 @@ def view_json_object(request, pk):
         "earlyprint/view_json_object.html",
         {"work": work, "pretty_json_data": pretty_json_data},
     )
+
+
+def search_results(request):
+    query = request.GET.get("query")
+    if query:
+        results = Work.objects.filter(json_data__icontains=query)[:10]
+        for result in results:
+            title = (
+                result.json_data.get("TEI", {})
+                .get("teiHeader", {})
+                .get("fileDesc", {})
+                .get("titleStmt", {})
+                .get("title", "No title available")
+            )
+            result.title = title
+    else:
+        results = Work.objects.none()
+    return render(request, "earlyprint/search_results.html", {"results": results})

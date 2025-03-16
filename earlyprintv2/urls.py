@@ -18,12 +18,18 @@ Including another URLconf
 from django.contrib import admin
 from django.db.models import indexes
 from django.urls import path
-from earlyprint.views import load_xml_to_db, list_json_objects, view_json_object, index
+from earlyprint.views import (
+    load_xml_to_db,
+    list_json_objects,
+    view_json_object,
+    index,
+    search_results,
+)
 from api.views import api_index
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", index),
+    path("", index, name="index"),
     path("load-xml/", load_xml_to_db, name="load_xml_to_db"),
     path("json-objects/", list_json_objects, name="list_json_objects"),
     path("json-objects/<int:pk>/", view_json_object, name="view_json_object"),
@@ -32,4 +38,5 @@ urlpatterns = [
         api_index,
         name="api_index",
     ),
+    path("search-results/", search_results, name="search_results"),
 ]
