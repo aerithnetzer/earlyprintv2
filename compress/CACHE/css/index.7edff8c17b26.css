@@ -1,0 +1,45 @@
+/* line 1, compress/scss/index.scss */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0; }
+
+/* line 7, compress/scss/index.scss */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  flex: 1; }
+
+/* line 15, compress/scss/index.scss */
+.search-container {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 600px; }
+
+/* line 20, compress/scss/index.scss */
+.advanced-search-options {
+  display: none;
+  margin-top: 15px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9; }
+
+/* line 28, compress/scss/index.scss */
+.advanced-search-options.visible {
+  display: block; }
+
+/* line 31, compress/scss/index.scss */
+.search-field {
+  margin-bottom: 10px;
+  width: 100%; }
+
+/* line 35, compress/scss/index.scss */
+.advanced-toggle {
+  margin-top: 10px;
+  display: flex;
+  align-items: center; }

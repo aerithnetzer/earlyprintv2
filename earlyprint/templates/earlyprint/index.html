@@ -24,6 +24,28 @@
         }
         .search-container {
             margin-top: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+        .advanced-search-options {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .advanced-search-options.visible {
+            display: block;
+        }
+        .search-field {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        .advanced-toggle {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
         }
     </style>
 </head>
@@ -32,11 +54,37 @@
         <h1>Welcome to the Early Print Archive</h1>
         <div class="search-container">
             <form method="GET" action="{% url 'search_results' %}">
-                <input type="text" name="query" placeholder="Search..." class="search-bar">
+                <input type="text" name="query" placeholder="Search..." class="search-bar search-field">
                 <button type="submit" class="search-button">Search</button>
+                
+                <div class="advanced-toggle">
+                    <input type="checkbox" id="advanced-search-toggle">
+                    <label for="advanced-search-toggle">Advanced Search</label>
+                </div>
+                
+                <div class="advanced-search-options" id="advanced-search-fields">
+                    <div class="search-field">
+                        <label for="author">Author:</label>
+                        <input type="text" name="author" id="author">
+                    </div>
+                    <div class="search-field">
+                        <label for="year">Year:</label>
+                        <input type="text" name="year" id="year">
+                    </div>
+                    <div class="search-field">
+                        <label for="publisher">Publisher:</label>
+                        <input type="text" name="publisher" id="publisher">
+                    </div>
+                </div>
             </form>
         </div>
     </div>
     {% include 'earlyprint/partials/footer.html' %}
+    
+    <script>
+        document.getElementById('advanced-search-toggle').addEventListener('change', function() {
+            document.getElementById('advanced-search-fields').classList.toggle('visible');
+        });
+    </script>
 </body>
 </html>

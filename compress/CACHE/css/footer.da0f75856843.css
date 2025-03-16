@@ -1,0 +1,13 @@
+/* line 1, compress/scss/footer.scss */
+.site-footer {
+  background-color: #000;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
+  margin-top: auto; }
+
+/* line 10, compress/scss/footer.scss */
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto; }

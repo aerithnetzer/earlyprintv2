@@ -53,22 +53,50 @@ def view_json_object(request, pk):
 
 
 def search_results(request):
-    query = request.GET.get("query")
+    query = request.GET.get("query", "")
+    author = request.GET.get("author", "")
+    year = request.GET.get("year", "")
+    publisher = request.GET.get("publisher", "")
+
+    results = Work.objects.all()
+
+    # Apply filters based on provided parameters
     if query:
-        results = Work.objects.filter(json_data__icontains=query)[:10]
-        # Create a list of dictionaries with work and title
-        results_with_titles = []
-        for result in results:
-            title = (
-                result.json_data.get("TEI", {})
-                .get("teiHeader", {})
-                .get("fileDesc", {})
-                .get("titleStmt", {})
-                .get("title", "No title available")
-            )
-            results_with_titles.append({"work": result, "title": title})
-    else:
-        results_with_titles = []
+        results = results.filter(json_data__icontains=query)
+
+    # Filter by author if provided
+    if author:
+        results = results.filter(
+            json_data__TEI__teiHeader__fileDesc__titleStmt__author__icontains=author
+        )
+
+    # Filter by year if provided
+    if year:
+        results = results.filter(
+            json_data__TEI__teiHeader__fileDesc__publicationStmt__date__icontains=year
+        )
+
+    # Filter by publisher if provided
+    if publisher:
+        results = results.filter(
+            json_data__TEI__teiHeader__fileDesc__publicationStmt__publisher__icontains=publisher
+        )
+
+    # Limit results to avoid overwhelming the page
+    results = results[:10]
+
+    # Create a list of dictionaries with work and title
+    results_with_titles = []
+    for result in results:
+        title = (
+            result.json_data.get("TEI", {})
+            .get("teiHeader", {})
+            .get("fileDesc", {})
+            .get("titleStmt", {})
+            .get("title", "No title available")
+        )
+        results_with_titles.append({"work": result, "title": title})
+
     return render(
         request, "earlyprint/search_results.html", {"results": results_with_titles}
     )
